@@ -3,6 +3,19 @@
 本文件只记录 **fork 相对上游的改动**。上游更早的历史见
 [上游仓库](https://github.com/MeteorNOX/DeepSeek-Balance-Whale-Widget) 的提交记录与 Releases。
 
+## 0.5.1 — 2026-10-23
+
+发布链路改动，**包内容与 `0.5.0` 完全相同**（`assets/whale-widget.js`、`lib/index.js` 逐字节未变）。
+
+### 修复
+
+- 发版改为纯 **npm Trusted Publishing (OIDC)**：GitHub Actions 用 `id-token` 换一次性凭证，
+  仓库里不需要任何 token。
+- 工作流里的 `NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}` 是个坑：secret 未配置时它展开成空串，
+  npm 会拿空 token 去请求而不是回退到 OIDC。已移除。
+- `--provenance=false` 会把 OIDC 发布时**默认自动生成**的 provenance 证明关掉，已移除。
+  从本版起，CI 发布的包都会带 provenance，npm 包页面显示「Built and signed on GitHub Actions」。
+
 ## 0.5.0 — 2026-10-23
 
 基线：上游 `v0.4.2`（2026-10-11）。
