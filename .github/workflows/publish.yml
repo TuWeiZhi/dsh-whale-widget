@@ -126,12 +126,12 @@ jobs:
             echo "版本 ${VERSION} 未发布，开始发布" | tee -a "$GITHUB_STEP_SUMMARY"
           fi
 
+      # 发布凭证走 npm Trusted Publishing (OIDC)：不注入任何 token —— secrets.NPM_TOKEN 未配置时
+      # 这个环境变量会是空串，反而可能让 npm 拿空 token 去撞 401 而不是走 OIDC。
+      # 另外 OIDC 发布时 npm 会自动生成 provenance 证明，显式写 --provenance=false 会把它关掉。
       - name: Publish to npm
         if: steps.check.outputs.exists == 'false' && github.event.inputs.dry_run != 'true'
-        run: npm publish --access public --registry https://registry.npmjs.org --provenance=false
-        env:
-          # 可选：若在仓库设置了 NPM_TOKEN secret 则用它；未设置时自动走 OIDC
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --access public --registry https://registry.npmjs.org
 
       # 生成 changelog：上个 v* tag 之后合入 main 的 PR（标题 + 编号），无 tag 则取全部
       # （dry_run 时这一步照样跑 —— 正好用来预览"这次会写出什么说明"）
