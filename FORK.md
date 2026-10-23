@@ -16,7 +16,11 @@
 小鲸鱼在**没人动鼠标、没有气泡正在显示**的时候，自己冒一句随机语句，到时间收起来。
 句子池就是「随机语句」模块里的那些句子，用户改过的话按用户改的来。
 
-配置写在 `.dshw-bubble.json` 的 `autoSay` 节（`.dshw-bubble.json` 与 `.dshw-usage.json`
+**开关在界面上**：右键挂件 →「自定义泡泡」窗口底部 `☑ 空闲时随机说话　最短 [90] 秒　最长 [240] 秒`，
+点该窗口的「保存」立即生效（不需要重启或刷新）。`assets/whale-widget.js` 里以
+`// [patch:auto-say]` 标记的 5 处就是这个开关；它复用了泡泡配置保存的既有通道。
+
+配置也可以直接写在 `.dshw-bubble.json` 的 `autoSay` 节（`.dshw-bubble.json` 与 `.dshw-usage.json`
 在同一目录，通常是 `%USERPROFILE%\.dsh\`）：
 
 ```json

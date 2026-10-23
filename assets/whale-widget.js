@@ -9670,7 +9670,7 @@ function bubbleEditorDirty() {
   try {
     if (bubbleEditorSnap === null) return true
     // v821：框库与保底框也算"有改动"（必须与打开时写进快照的数组完全一致，否则永远是脏的）
-    return bubbleEditorSnap !== JSON.stringify([bubbleEditItems, bubbleLib, bubbleTapAdvChk.checked, framesNow()])
+    return bubbleEditorSnap !== JSON.stringify([bubbleEditItems, bubbleLib, bubbleTapAdvChk.checked, framesNow(), bubbleAutoSaySnap()])
   } catch (err) { return true }
 }
 // v783：打开编辑器前**先从宿主重读一遍配置**。为什么必须重读：泡泡配置只在页面加载时取一次
@@ -9703,6 +9703,8 @@ function openBubbleEditorWithCache() {
     closeAudioGroupPanel()
     bubbleLib = (bubbleCfg && bubbleCfg.lib && Array.isArray(bubbleCfg.lib)) ? JSON.parse(JSON.stringify(bubbleCfg.lib)) : []
     bubbleTapAdvChk.checked = bubbleTapAdvance === true // v727：把已保存的开关状态显示出来
+    // [patch:auto-say] 把已保存的自动说话开关/间隔也显示出来（没配过 = 默认开启、90~240 秒）
+    try { bubbleAutoSaySync() } catch (err) {}
     var list = []
     if (bubbleCfg && Array.isArray(bubbleCfg.items) && bubbleCfg.items.length) {
       list = bubbleCfg.items.slice()
@@ -9732,7 +9734,7 @@ function openBubbleEditorWithCache() {
         modules: src.modules ? JSON.parse(JSON.stringify(src.modules)) : undefined,
       }, frameFieldsOf(src)))
     }
-    bubbleEditorSnap = JSON.stringify([bubbleEditItems, bubbleLib, bubbleTapAdvChk.checked, framesNow()]) // v727 含开关；v821 含框库与保底
+    bubbleEditorSnap = JSON.stringify([bubbleEditItems, bubbleLib, bubbleTapAdvChk.checked, framesNow(), bubbleAutoSaySnap()]) // v727 含开关；v821 含框库与保底；[patch:auto-say] 含自动说话开关
     renderBubbleEditor()
     // v821（P1）：窗口打开时刷新框库行（保底框名可能变了）+ 收起残留的下拉
     try { frameLibToggle(false); frameLibRefresh() } catch (err) {}
@@ -9779,9 +9781,9 @@ function bubbleEditorSave() {
       // v727：开关随本窗口的「保存」一起落盘；保存成功后立即生效（不必重载）
       var tapAdv = bubbleTapAdvChk.checked === true
       var payload = { v: 1, items: items, lib: bubbleLib, tapAdvance: tapAdv }
-      // [patch:auto-say] 这个窗口里没有自动说话的控件，所以只做一件事：把读到的
-      // autoSay 原样带回去。宿主按白名单落盘，不回传就等于点一次保存删掉它。
-      try { if (bubbleCfg && bubbleCfg.autoSay) payload.autoSay = bubbleCfg.autoSay } catch (err) {}
+      // [patch:auto-say] 本窗口现在有开关了：把控件状态写进 autoSay 一起落盘
+      //   （宿主按白名单落盘；不回传就等于点一次「保存」把 autoSay 整节删掉）
+      try { var asPayload = bubbleAutoSayPayload(); if (asPayload) payload.autoSay = asPayload } catch (err) {}
       // v815：框库只在"需要持久化"时写（有自定义框 / 曾经写过 / 保底改过）⇒ 老配置零 churn
       try {
         if (framesShouldPersist()) {
@@ -11629,6 +11631,106 @@ bubbleTapAdvRow.appendChild(bubbleTapAdvChk)
 bubbleTapAdvRow.appendChild(bubbleTapAdvLab)
 bubbleTapAdvRow.appendChild(bubbleTapAdvAsk)
 bubbleCard.appendChild(bubbleTapAdvRow)
+// ==== [patch:auto-say] 自动说话开关（本地补丁，非官方功能）====
+//   为什么开关放这个窗口：宿主 POST /dsh-whale/bubble.json 时按白名单落盘 autoSay 节，
+//   而本窗口的「保存」正好把整份配置整包回传 —— 所以这里既不需要新路由，也不需要新接口。
+//   关掉后引擎按 60 秒一次慢轮询复查配置，重新打开**不需要刷新页面**。
+var bubbleAutoSayRow = document.createElement('div')
+bubbleAutoSayRow.className = 'dshwv-bubsec'
+bubbleAutoSayRow.style.display = 'flex'
+bubbleAutoSayRow.style.alignItems = 'center'
+bubbleAutoSayRow.style.flexWrap = 'wrap'
+bubbleAutoSayRow.style.gap = '4px 6px'
+bubbleAutoSayRow.style.color = '#203170'
+var bubbleAutoSayChk = document.createElement('input')
+bubbleAutoSayChk.type = 'checkbox'
+bubbleAutoSayChk.className = 'dshwv-check'
+bubbleAutoSayChk.id = 'dshwv-autosay'
+var bubbleAutoSayLab = document.createElement('label')
+bubbleAutoSayLab.setAttribute('for', 'dshwv-autosay')
+bubbleAutoSayLab.style.cursor = 'pointer'
+bubbleAutoSayLab.style.fontSize = '12px'
+bubbleAutoSayLab.textContent = '空闲时随机说话'
+function bubbleAutoSayUnit(txt) {
+  var s = document.createElement('span')
+  s.style.fontSize = '12px'
+  s.textContent = txt
+  return s
+}
+var bubbleAutoSayMinInp = document.createElement('input')
+bubbleAutoSayMinInp.type = 'number'
+bubbleAutoSayMinInp.min = '5'
+bubbleAutoSayMinInp.step = '1'
+bubbleAutoSayMinInp.className = 'dshwv-number'
+bubbleAutoSayMinInp.value = '90'
+bubbleAutoSayMinInp.title = '最短间隔（秒），最小 5'
+var bubbleAutoSayMaxInp = document.createElement('input')
+bubbleAutoSayMaxInp.type = 'number'
+bubbleAutoSayMaxInp.min = '5'
+bubbleAutoSayMaxInp.step = '1'
+bubbleAutoSayMaxInp.className = 'dshwv-number'
+bubbleAutoSayMaxInp.value = '240'
+bubbleAutoSayMaxInp.title = '最长间隔（秒），必须 ≥ 最短间隔'
+var bubbleAutoSayAsk = dshwvAskDot(
+  '开启后：<b>空闲</b>时（一段时间没点角色、没跑对话）每隔随机 <b>最短~最长</b> 秒，' +
+  '从「第 2 个泡泡」的随机语句里挑一条自己冒出来，停几秒后收起。<br><br>' +
+  '间隔单位是秒，最小 5；最长小于最短时会自动按最短算。<br>' +
+  '说什么由「第 2 个泡泡 → 随机语句」决定，改那里的句子即可。<br><br>' +
+  '关闭＝不自动说话（点角色照旧）。开关随本窗口的「保存」一起生效，不需要重启。'
+)
+bubbleAutoSayAsk.title = ''
+bubbleAutoSayChk.addEventListener('change', function () {
+  var on = bubbleAutoSayChk.checked === true
+  bubbleAutoSayMinInp.disabled = !on
+  bubbleAutoSayMaxInp.disabled = !on
+})
+bubbleAutoSayRow.appendChild(bubbleAutoSayChk)
+bubbleAutoSayRow.appendChild(bubbleAutoSayLab)
+bubbleAutoSayRow.appendChild(bubbleAutoSayUnit('最短'))
+bubbleAutoSayRow.appendChild(bubbleAutoSayMinInp)
+bubbleAutoSayRow.appendChild(bubbleAutoSayUnit('秒 最长'))
+bubbleAutoSayRow.appendChild(bubbleAutoSayMaxInp)
+bubbleAutoSayRow.appendChild(bubbleAutoSayUnit('秒'))
+bubbleAutoSayRow.appendChild(bubbleAutoSayAsk)
+bubbleCard.appendChild(bubbleAutoSayRow)
+// 数值归一：非数字回默认值，再夹到 [lo, hi]
+function bubbleAutoSayNum(v, dflt, lo, hi) {
+  var n = Number(v)
+  if (!isFinite(n)) n = dflt
+  n = Math.round(n)
+  if (n < lo) n = lo
+  if (hi != null && n > hi) n = hi
+  return n
+}
+// 控件 ⇒ 待落盘的 autoSay（毫秒）。ttlMs / idleMs 这个窗口没有控件，原样保留旧值。
+function bubbleAutoSayPayload() {
+  if (!bubbleAutoSayChk) return null
+  var prev = (bubbleCfg && bubbleCfg.autoSay && typeof bubbleCfg.autoSay === 'object') ? bubbleCfg.autoSay : {}
+  var mn = bubbleAutoSayNum(bubbleAutoSayMinInp.value, 90, 5, 86400)
+  var mx = bubbleAutoSayNum(bubbleAutoSayMaxInp.value, 240, 5, 86400)
+  if (mx < mn) mx = mn
+  return {
+    on: bubbleAutoSayChk.checked === true,
+    minMs: mn * 1000,
+    maxMs: mx * 1000,
+    ttlMs: bubbleAutoSayNum(prev.ttlMs, 6500, 2000, 600000),
+    idleMs: bubbleAutoSayNum(prev.idleMs, 20000, 0, 86400000),
+  }
+}
+// autoSay ⇒ 控件（每次打开窗口都从宿主读到的最新配置重算一次）
+function bubbleAutoSaySync() {
+  if (!bubbleAutoSayChk) return
+  var a = (bubbleCfg && bubbleCfg.autoSay && typeof bubbleCfg.autoSay === 'object') ? bubbleCfg.autoSay : {}
+  bubbleAutoSayChk.checked = a.on !== false
+  bubbleAutoSayMinInp.value = String(Math.round(bubbleAutoSayNum(a.minMs, 90000, 5000, 86400000) / 1000))
+  bubbleAutoSayMaxInp.value = String(Math.round(bubbleAutoSayNum(a.maxMs, 240000, 5000, 86400000) / 1000))
+  bubbleAutoSayMinInp.disabled = !bubbleAutoSayChk.checked
+  bubbleAutoSayMaxInp.disabled = !bubbleAutoSayChk.checked
+}
+// 快照用：控件状态的紧凑表示（脏检查用；不参与落盘）
+function bubbleAutoSaySnap() {
+  try { return bubbleAutoSayPayload() } catch (err) { return null }
+}
 // 按钮行
 var bubbleBtns = document.createElement('div')
 bubbleBtns.className = 'dshwv-bubbtns'

@@ -1,7 +1,7 @@
 # DSH 小鲸鱼记账挂件（DeepSeek Balance Whale Widget）
 
 > **这是 [`MeteorNOX/DeepSeek-Balance-Whale-Widget`](https://github.com/MeteorNOX/DeepSeek-Balance-Whale-Widget) 的增强 fork**，基线为上游 `v0.4.2`。
-> 只加了两个功能：**空闲自动说话**（`.dshw-bubble.json` 的 `autoSay` 节，见 [docs/auto-say.md](docs/auto-say.md)）
+> 只加了两个功能：**空闲自动说话**（「自定义泡泡」窗口底部有开关，也可手改 `.dshw-bubble.json` 的 `autoSay` 节，见 [docs/auto-say.md](docs/auto-say.md)）
 > 与**随机语句「洗牌袋」**（一轮内按权重不重复）。
 > 其余与上游一致 —— 改动清单见 [CHANGELOG.md](CHANGELOG.md)，来历、核对与同步方式见 [FORK.md](FORK.md)。只想用原版就用上游仓库。
 
