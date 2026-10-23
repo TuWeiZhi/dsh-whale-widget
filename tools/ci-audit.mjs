@@ -3,7 +3,7 @@
 // 定位：与 tools/z-layer-audit.mjs 同一形状。那个脚本钉「浮层层级」一条不变量，
 // 本脚本钉「这个仓库最容易静默失效、又真的能自动查」的五条，覆盖从源码到发布产物。
 //
-// 为什么是这五条（每条都对应这个仓库真实发生过、或结构上必然会发生的事故）：
+// 为什么是这六条（每条都对应这个仓库真实发生过、或结构上必然会发生的事故）：
 //   ① 检查所有后台接口必须走统一安全入口 —— 新增路由绕过 requestRejection（凭据外带 / 内网可达；
 //                                            安全修复 S1、issue #136 fail-open）
 //   ② 检查后端提供了所有前端调用的接口   —— 前端 fetch 了后端没注册的路径（两个巨石文件各改一半
@@ -11,6 +11,8 @@
 //   ③ 检查打包后是否可以运行             —— 装出来的包里缺 assets/ 或 dsh.bundle.patch 指错文件（插件整包起不来）
 //   ④ 检查日常ci与发版ci流程是否一致     —— 只改了 ci.yml 忘了 publish.yml（发布路径上某个检查被悄悄摘掉）
 //   ⑤ 检查页面动态内容是否写清来源       —— innerHTML 接了变量（issue #143；新增未转义入口要有人看见）
+//   ⑥ 检查版本号单一来源                 —— 改了 package.json 忘了改代码里的 BUILD_VERSION 字面量：
+//                                            0.5.0 / 0.5.1 就是这么发的，菜单一直显示 0.4.2、更新检查永远为真
 //
 // 设计原则：
 //   · 零依赖（只用 node: 内置模块），不引 ESLint / jsdom / 测试框架——本仓库零依赖零构建是根本前提；
@@ -507,6 +509,41 @@ run('5', '检查页面动态内容是否写清来源', (problems, notes) => {
     problems.push('允许清单里有已不存在的条目（清单会腐烂，请删掉）：' + stale.join('；'))
   }
   notes.push('非静态 HTML 写入 ' + seen.size + ' 处，全部在允许清单内；清单共 ' + allow.size + ' 条')
+})
+
+// ---------------------------------------------------------------------------
+// ⑥ 版本号单一来源：package.json 是唯一真相，代码里不许再各存一份字面量
+//    （背景：fork 发 0.5.0 / 0.5.1 时只改了前端，BUILD_VERSION 与两个 payload 里的
+//      `version: '…'` 停在 0.4.2 ⇒ 菜单显示 0.4.2、hasUpdate 永远为真，用户以为装的是上游原版）
+// ---------------------------------------------------------------------------
+run('6', '检查版本号单一来源（package.json 与代码不许各说各话）', (problems, notes) => {
+  if (!has('package.json') || !has(HOST_FILE)) {
+    notes.push('样本里缺 package.json 或 ' + HOST_FILE + '，跳过')
+    return
+  }
+  const pkgVersion = String(JSON.parse(read('package.json')).version || '')
+  const src = stripComments(read(HOST_FILE))
+
+  // ① 运行时版本必须从同包 package.json 读，不许写死字面量
+  if (/const\s+BUILD_VERSION\s*=\s*['"]/.test(src)) {
+    problems.push("const BUILD_VERSION 又变回了字面量 —— 它必须从 package.json 读（写成 BUILD_VERSION_FALLBACK + 运行时读取），否则升版本时必然漏改")
+  }
+
+  // ② 兜底常量（只在读不到 package.json 时生效）必须等于 package.json 的 version
+  const fb = src.match(/const\s+BUILD_VERSION_FALLBACK\s*=\s*(['"])([^'"]+)\1/)
+  if (!fb) {
+    problems.push('找不到 const BUILD_VERSION_FALLBACK —— 运行时读不到 package.json 时必须有可核对的兜底值')
+  } else if (fb[2] !== pkgVersion) {
+    problems.push('BUILD_VERSION_FALLBACK = ' + fb[2] + '，但 package.json 的 version = ' + pkgVersion + ' —— 兜底值与真实版本不一致（升版本时忘了改这里）')
+  }
+
+  // ③ payload 里不许再有写死的版本号（形如 version: '1.2.3'）
+  const hardcoded = [...src.matchAll(/\bversion\s*:\s*(['"])(\d+\.\d+\.\d+[^'"]*)\1/g)].map((m) => m[2])
+  if (hardcoded.length) {
+    problems.push('代码里仍有写死的版本号字面量：' + hardcoded.join('、') + ' —— 改成变量 BUILD_VERSION（前端的 version 字段也应来自同一个来源）')
+  }
+
+  notes.push('package.json version = ' + pkgVersion + '，' + HOST_FILE + ' 里无写死版本号')
 })
 
 // ---------------------------------------------------------------------------

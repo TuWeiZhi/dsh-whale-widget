@@ -34,6 +34,14 @@ const WF = [
 ].join('\n')
 
 const HOST = [
+  "const BUILD_VERSION_FALLBACK = '0.0.0'",
+  'const BUILD_VERSION = (() => {',
+  '  try {',
+  "    return JSON.parse(fs.readFileSync(new URL('../package.json', import.meta.url), 'utf8')).version",
+  '  } catch {',
+  '    return BUILD_VERSION_FALLBACK',
+  '  }',
+  '})()',
   'const WIDGET_FILE_CANDIDATES = [',
   "  path.join(path.dirname(fileURLToPath(import.meta.url)), 'whale-widget.js'),",
   "  path.join(PACKAGE_ROOT, 'assets', 'whale-widget.js'),",
@@ -112,7 +120,7 @@ const red = (dir, only, label) => {
 }
 
 // --- 基线 --------------------------------------------------------------------
-check('基线：干净样本必须全绿（五项一起跑，标题即 ci-audit 的五项检查名）', () => {
+check('基线：干净样本必须全绿（六项一起跑，标题即 ci-audit 的六项检查名）', () => {
   green(writeFixture('clean'), null)
 })
 
@@ -209,6 +217,25 @@ check('④ publish.yml 被摘掉语法检查 → 必红', () => {
 
 check('④ 两份 workflow 覆盖一致 → 必须绿', () => {
   green(writeFixture('c4-ok'), '4', '两份 workflow 一致')
+})
+
+// --- ⑥ 版本号单一来源 --------------------------------------------------------
+check('⑥ 兜底版本号与 package.json 不一致 → 必红', () => {
+  const dir = writeFixture('c6-drift', {
+    'package.json': JSON.stringify({ name: 'dsh-whale-widget', version: '9.9.9', type: 'module', main: 'lib/index.js' }, null, 2),
+  })
+  red(dir, '6', '兜底值漂移')
+})
+
+check('⑥ 代码里又写死 version 字面量 → 必红', () => {
+  const dir = writeFixture('c6-literal', {
+    'lib/index.js': HOST + "const drifted = { version: '0.0.1' }\n",
+  })
+  red(dir, '6', '写死版本号')
+})
+
+check('⑥ 只认 package.json → 必须绿', () => {
+  green(writeFixture('c6-ok'), '6', '版本号单一来源')
 })
 
 // --- 汇总 -------------------------------------------------------------------

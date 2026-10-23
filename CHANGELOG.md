@@ -3,6 +3,26 @@
 本文件只记录 **fork 相对上游的改动**。上游更早的历史见
 [上游仓库](https://github.com/MeteorNOX/DeepSeek-Balance-Whale-Widget) 的提交记录与 Releases。
 
+## 0.5.2 — 2026-10-24
+
+### 修复
+
+- **版本号漂移（重要）**：`lib/index.js` 里写死的 `BUILD_VERSION = '0.4.2'` 从 0.5.0 起就没再跟着改，
+  于是 0.5.0 / 0.5.1 装好后菜单底部仍显示 `0.4.2`、「关于 / 自检」面板同样如此，
+  而更新检查 `hasUpdate: latest !== BUILD_VERSION` 永远为真 —— 每次启动都提示有新版。
+  用户据此以为装到的是上游原版（本 fork 的痛点是"看不出差别"，这一条把它放大成了"看起来是旧包"）。
+  - 现在版本号**只认同包 `package.json`**：运行时读取，读不到才退回 `BUILD_VERSION_FALLBACK`。
+  - 另有两处 payload 里的 `version: '0.4.2'` 字面量一并改为 `version: BUILD_VERSION`。
+- **新增门禁**：`tools/ci-audit.mjs` 第 ⑥ 项「检查版本号单一来源」——禁止 `const BUILD_VERSION = '…'`
+  这类字面量、禁止 payload 里写死语义化版本、要求 `BUILD_VERSION_FALLBACK` 必须等于
+  `package.json` 的 `version`。`tools/ci-audit-selftest.mjs` 同时补了 3 个用例（漂移必红 / 写死必红 / 干净必绿）。
+
+### 说明
+
+- 包内容（`assets/whale-widget.js`）与 0.5.1 **逐字节相同**，本版只修宿主侧版本号与门禁。
+- 自动说话仍**只能在 `~/.dsh/.dshw-bubble.json` 的 `autoSay` 节里配置**，设置面板没有开关；
+  这是"装完看不出 fork 差别"的根因，下一版补 UI 开关。
+
 ## 0.5.1 — 2026-10-23
 
 发布链路改动，**包内容与 `0.5.0` 完全相同**（`assets/whale-widget.js`、`lib/index.js` 逐字节未变）。
