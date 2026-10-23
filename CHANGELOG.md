@@ -15,6 +15,9 @@
   npm 会拿空 token 去请求而不是回退到 OIDC。已移除。
 - `--provenance=false` 会把 OIDC 发布时**默认自动生成**的 provenance 证明关掉，已移除。
   从本版起，CI 发布的包都会带 provenance，npm 包页面显示「Built and signed on GitHub Actions」。
+- `tools/ci-audit.mjs` 解析 `cordis.patch.yml` 里的 `name` 时没有剥掉 YAML 引号：scoped 包名
+  必须写成 `name: '@scope/name'`（`@` 是 YAML 保留字符），于是发版门禁第 [3] 项误报
+  「声明名与 package.json 不一致」，本地用 `--no-pack` 又测不到。已改为剥引号后比较。
 
 ## 0.5.0 — 2026-10-23
 

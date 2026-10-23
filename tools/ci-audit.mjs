@@ -349,8 +349,11 @@ run('3', '检查打包后是否可以运行', (problems, notes) => {
     } else {
       // 挂载声明里的插件名应与包名一致，否则 patch 挂的不是这个包
       const yml = read(rel)
+      // v0.5.1：YAML 里以 `@` 开头的标量必须加引号（`@` 是 YAML 保留字符，裸写不是合法 YAML），
+      //   所以 scoped 包名在 patch 里一定写成 `name: '@scope/name'`。
+      //   这里把成对的单/双引号剥掉再比较，否则改名到 `@scope/name` 之后这一项会误报不一致。
       const nm = yml.match(/^\s*name:\s*(.+)$/m)
-      const declared = nm ? nm[1].trim() : null
+      const declared = nm ? nm[1].trim().replace(/^(['"])([\s\S]*)\1$/, '$2') : null
       if (declared && declared !== pkg.name) {
         problems.push(rel + ' 里声明的 name (' + declared + ') 与 package.json 的 name (' + pkg.name + ') 不一致')
       }
