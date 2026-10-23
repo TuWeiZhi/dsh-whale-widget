@@ -25,6 +25,17 @@ dsh plugin --profile web add @tuweizhi/dsh-whale-widget
 
 已经装过上游 npm 版的，先 `dsh plugin --profile web remove dsh-whale-widget` 再装 —— 两个包会并存冲突。
 
+### 从插件市场一键安装（不用敲命令）
+
+DSH 没有官方插件市场，「发现」标签页只列**你自己添加的索引源**。本 fork 维护了一份索引，两个插件都收在里面：
+
+1. 插件页 → 「实验性插件」→ **更多** → 启用**自定义插件市场**（DSH 自带的可选组合包，默认关闭）
+2. **发现** → **索引源** → 添加
+   `https://raw.githubusercontent.com/TuWeiZhi/dsh-plugins-index/main/index.json`
+3. 在「发现」里选中本插件 → 安装
+
+索引仓库：[TuWeiZhi/dsh-plugins-index](https://github.com/TuWeiZhi/dsh-plugins-index)。
+
 DeepSeek Harness（DSH）Web 界面右下角的常驻挂件：小鲸鱼气泡图 + DeepSeek API 余额 + 今日已用 + 每轮对话消耗，并且**泡泡内容可以完全自定义**（点击序列、模块化排版、并列加权出泡、随机语句/随机图片）。标准 DSH bundle 插件，`dsh plugin` 一键安装，无需任何会话令牌。
 
 > ⚠️ **Codex 版小鲸鱼已迁至独立仓库** → <https://github.com/Yang-huai406/Codex-Whale-Public>（**已安装用户无需重装**；详见下方「两条分支怎么选」）
