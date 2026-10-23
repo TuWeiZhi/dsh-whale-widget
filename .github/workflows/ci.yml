@@ -94,11 +94,18 @@ jobs:
         run: node tools/check-dead-settings.mjs
 
       # package.json 必须能被解析，且 version 是 semver（发布流程按它取版本号）
+      # 包名检查：必须是 scoped 名，且后缀与仓库目录名一致 —— 不再写死字符串。
+      #   （2026-10-24 修：这行原先写死上游的 'dsh-whale-widget'，本 fork 改成
+      #    @tuweizhi/dsh-whale-widget 之后每次 CI 都红，而没人看 ci.yml 的结果。）
       - name: package.json sanity
         run: |
           node -e "
             const p = require('./package.json')
+            const path = require('node:path')
             if (!/^\d+\.\d+\.\d+/.test(String(p.version))) { console.error('version 不是 semver: ' + p.version); process.exit(1) }
-            if (p.name !== 'dsh-whale-widget') { console.error('包名意外: ' + p.name); process.exit(1) }
+            const m = /^@([a-z0-9][a-z0-9._~-]*)\/([a-z0-9][a-z0-9._~-]*)$/.exec(String(p.name))
+            if (!m) { console.error('包名必须是 scoped 形式 @scope/name: ' + p.name); process.exit(1) }
+            const repoName = path.basename(process.cwd())
+            if (m[2] !== repoName) { console.error('包名后缀应与仓库名一致: ' + m[2] + ' ≠ ' + repoName); process.exit(1) }
             console.log('package.json OK: ' + p.name + '@' + p.version)
           "
