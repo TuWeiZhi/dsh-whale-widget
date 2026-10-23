@@ -7,6 +7,24 @@
 
 ![DSH 小鲸鱼记账挂件](assets/DSH2.png)
 
+## 安装这个 fork
+
+本 fork 的包名是 **`@tuweizhi/dsh-whale-widget`**。下面正文里的安装命令用的是**上游**包名
+`dsh-whale-widget`，照抄会把上游原版装上（上游文档保留原样，方便对照）：
+
+```sh
+# 从本仓库装（跟随 main，含本 fork 的两个功能）
+dsh plugin --profile web add github:TuWeiZhi/dsh-whale-widget
+
+# 本机开发安装
+dsh plugin --profile web add link:<本仓库绝对路径>
+
+# 发布到 npm 之后（access public，scoped 包需要）
+dsh plugin --profile web add @tuweizhi/dsh-whale-widget
+```
+
+已经装过上游 npm 版的，先 `dsh plugin --profile web remove dsh-whale-widget` 再装 —— 两个包会并存冲突。
+
 DeepSeek Harness（DSH）Web 界面右下角的常驻挂件：小鲸鱼气泡图 + DeepSeek API 余额 + 今日已用 + 每轮对话消耗，并且**泡泡内容可以完全自定义**（点击序列、模块化排版、并列加权出泡、随机语句/随机图片）。标准 DSH bundle 插件，`dsh plugin` 一键安装，无需任何会话令牌。
 
 > ⚠️ **Codex 版小鲸鱼已迁至独立仓库** → <https://github.com/Yang-huai406/Codex-Whale-Public>（**已安装用户无需重装**；详见下方「两条分支怎么选」）

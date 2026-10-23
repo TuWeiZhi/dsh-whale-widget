@@ -94,28 +94,33 @@ node tools/ci-audit-selftest.mjs
 node tools/check-dead-settings.mjs
 ```
 
-## 想发到自己的仓库 / npm？先看这一节
+## 包名与仓库地址
 
-本仓库**故意保留上游的包名 `dsh-whale-widget`**，这样 `dsh plugin add` 的老命令、CI、
-`tools/` 里的审计脚本都不用动，也能随时和上游对比。要挂到自己的 scope 下，得改下面这些地方
-（包名不止在 `package.json` 里，别只改一处就发）：
+本 fork 已挂在 `@tuweizhi` 名下：
+
+- 包名 `@tuweizhi/dsh-whale-widget`（上游是 `dsh-whale-widget`，两者会并存冲突，装之前先移除旧的）
+- 仓库 `https://github.com/TuWeiZhi/dsh-whale-widget`
+- 安装见 README 顶部的「安装这个 fork」一节
+
+要换成别的 scope 时，**别只改 `package.json`**——包名散在下面这些地方：
 
 ```sh
-grep -rn 'dsh-whale-widget' package.json cordis.patch.yml README.md lib/index.js | grep -v '^lib/index.js:.*//'
+grep -rn 'tuweizhi' package.json cordis.patch.yml README.md lib/index.js .github/workflows/publish.yml
 ```
 
 | 位置 | 改什么 |
 |---|---|
 | `package.json` | `name`、`repository.url`、`bugs.url`、`homepage` |
-| `cordis.patch.yml` | `name:`（bundle 里加载的包名） |
-| `lib/index.js` | ① 插件注册的 `name:`；② 更新检查器：`npm view <name> version`、`npmmirror`/`jsdelivr` 的 URL、`user-agent` |
-| `README.md` | 安装命令里的包名与 `github:` 地址 |
+| `cordis.patch.yml` | `name:`（bundle 里实际加载的包名） |
+| `lib/index.js` | ① 插件注册的 `name:`；② 更新检查器的四个 `UPDATE_SOURCES` URL、`npm view <name> version`、`user-agent` |
+| `.github/workflows/publish.yml` | 「版本是否已发布」那步的 registry URL |
+| `README.md` | 顶部「安装这个 fork」里的三条命令 |
 
-⚠️ **scoped 包名会让更新检查器失效**：`registry.npmmirror.com/<name>/latest` 和
-`cdn.jsdelivr.net/npm/<name>@latest/package.json` 这两个 URL 里的 `/` 必须写成 `%2f`
-（`@you/dsh-whale-widget` → `registry.npmmirror.com/@you%2fdsh-whale-widget/latest`），
-不改的话更新检查永远 404，界面上只是「检查更新失败」，不会报错给你看。
-不想折腾就把 `lib/index.js` 里那段更新检查删掉 —— 它和泡沫功能没有关系。
+⚠️ **scoped 包名在 registry API 里要写 `%2f`**：`registry.npmmirror.com/@tuweizhi%2fdsh-whale-widget/latest`、
+`registry.npmjs.org/@tuweizhi%2fdsh-whale-widget/<version>`。jsdelivr / unpkg 反而**不编码**
+（`cdn.jsdelivr.net/npm/@tuweizhi/dsh-whale-widget@latest/package.json`）。写错的后果很轻但不明显：
+更新检查永远 404，界面上只是一句「检查更新失败」。这些地址本仓库已经按规则改好了，
+换 scope 时照着改即可。
 
 ## 许可
 
