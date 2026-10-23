@@ -3,6 +3,13 @@
 本文件只记录 **fork 相对上游的改动**。上游更早的历史见
 [上游仓库](https://github.com/MeteorNOX/DeepSeek-Balance-Whale-Widget) 的提交记录与 Releases。
 
+## 未发布（仅仓库改动，不进包）
+
+- `ci.yml` 的「package.json sanity」原先断言 `p.name === 'dsh-whale-widget'`（上游的裸包名）。
+  本 fork 在 0.5.0 把包名改成 `@tuweizhi/dsh-whale-widget` 之后，日常 CI **7 次全红**都没人看，
+  只有发版那条 `publish.yml` 被盯着。现在改为：包名必须是 scoped 形式，且后缀与仓库目录名一致
+  （不再写死字符串，仓库改名后也不会再过期）。
+
 ## 0.5.2 — 2026-10-24
 
 ### 新增
