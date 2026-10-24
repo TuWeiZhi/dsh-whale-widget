@@ -8453,382 +8453,1400 @@ function bubbleDefaultSecondModules() {
 // —— 出厂默认泡泡序列快照:由开发环境当前生效配置(.dshw-bubble.json items)固化 ——
 // 全新安装无配置/「恢复默认序列」时即此体验;图片模块引用语义内置 id(host 内置图库回退)。
 var BUBBLE_DEFAULT_ITEMS = [
-    {
-        "kind":  "custom",
-        "modules":  [
-                        {
-                            "type":  "text",
-                            "text":  "DeepSeek 余额",
-                            "size":  8,
-                            "bold":  true,
-                            "rgb":  "",
-                            "ul":  false,
-                            "italic":  false,
-                            "color":  ""
-                        },
-                        {
-                            "type":  "balance",
-                            "size":  20,
-                            "rgb":  "indigo",
-                            "color":  "",
-                            "tpl":  "{balance_ds}",
-                            "bgRgb":  "",
-                            "bg":  "",
-                            "fontFamily":  "",
-                            "bold":  false
-                        },
-                        {
-                            "type":  "today",
-                            "size":  4,
-                            "color":  "#9fb0d9",
-                            "tpl":  "今日已用 {expense_ds}"
-                        },
-                        {
-                            "type":  "peak",
-                            "size":  2,
-                            "peakColor":  "#ffffff",
-                            "offColor":  "#ffffff",
-                            "tpl":  "{status}",
-                            "peakRgb":  "",
-                            "offRgb":  "",
-                            "peakBgRgb":  "rouge",
-                            "peakBg":  "",
-                            "offBgRgb":  "bamboo",
-                            "offBg":  "",
-                            "peakStyle":  "mini",
-                            "bold":  true,
-                            "row":  4,
-                            "fontFamily":  "\"Microsoft YaHei\",sans-serif"
-                        },
-                        {
-                            "type":  "peak",
-                            "size":  4,
-                            "bold":  true,
-                            "peakColor":  "#e0433f",
-                            "offColor":  "#2fa24c",
-                            "peakRgb":  "rouge",
-                            "offRgb":  "bamboo",
-                            "peakStyle":  "count",
-                            "tpl":  "{countdown}",
-                            "row":  4,
-                            "fontFamily":  "",
-                            "italic":  false,
-                            "ul":  true
-                        }
-                    ]
-    },
-    {
-        "kind":  "choice",
-        "options":  [
-                        {
-                            "w":  10,
-                            "item":  {
-                                         "kind":  "custom",
-                                         "modules":  [
-                                                         {
-                                                             "type":  "random",
-                                                             "lines":  [
-                                                                           {
-                                                                               "t":  "好模型...↓",
-                                                                               "w":  10,
-                                                                               "bold":  true,
-                                                                               "size":  22
-                                                                           },
-                                                                           {
-                                                                               "t":  "好女孩...↓",
-                                                                               "w":  10,
-                                                                               "bold":  true,
-                                                                               "size":  22
-                                                                           },
-                                                                           {
-                                                                               "t":  "哦鲸鲸...",
-                                                                               "w":  10,
-                                                                               "bold":  true,
-                                                                               "size":  22
-                                                                           },
-                                                                           {
-                                                                               "t":  "哦鲸鲸...",
-                                                                               "w":  1,
-                                                                               "bold":  true,
-                                                                               "size":  22,
-                                                                               "rgb":  "candy",
-                                                                               "color":  ""
-                                                                           },
-                                                                           {
-                                                                               "t":  "难道说...",
-                                                                               "w":  3,
-                                                                               "bold":  true,
-                                                                               "size":  11
-                                                                           },
-                                                                           {
-                                                                               "t":  "没吃饱喵",
-                                                                               "w":  3,
-                                                                               "bold":  true,
-                                                                               "size":  10
-                                                                           },
-                                                                           {
-                                                                               "t":  "终于上当了！",
-                                                                               "w":  3,
-                                                                               "bold":  true
-                                                                           },
-                                                                           {
-                                                                               "t":  "不知道用户有什么用，先养着吧～",
-                                                                               "w":  3,
-                                                                               "bold":  true,
-                                                                               "size":  11
-                                                                           },
-                                                                           {
-                                                                               "t":  "我...我...我也要挣钱吗？",
-                                                                               "w":  3,
-                                                                               "bold":  true
-                                                                           },
-                                                                           {
-                                                                               "t":  "我去吃饭啦！测完叫我",
-                                                                               "w":  3,
-                                                                               "bold":  true
-                                                                           },
-                                                                           {
-                                                                               "t":  "压力一只蓝色大肥鱼？！",
-                                                                               "w":  3,
-                                                                               "bold":  true
-                                                                           },
-                                                                           {
-                                                                               "t":  "DeepSleep...",
-                                                                               "w":  3,
-                                                                               "bold":  true,
-                                                                               "size":  11,
-                                                                               "rgb":  "galaxy"
-                                                                           },
-                                                                           {
-                                                                               "t":  "坏了...用户彻底怒了！",
-                                                                               "w":  3,
-                                                                               "bold":  true,
-                                                                               "rgb":  "rouge"
-                                                                           },
-                                                                           {
-                                                                               "t":  "你目录里的dsh是什么...大烧货吗...?",
-                                                                               "w":  3,
-                                                                               "bold":  true,
-                                                                               "size":  9
-                                                                           },
-                                                                           {
-                                                                               "t":  "恭喜你实现token自由！token全跑了！",
-                                                                               "w":  3,
-                                                                               "bold":  true
-                                                                           },
-                                                                           {
-                                                                               "t":  "真当我是便宜货啊...",
-                                                                               "w":  3,
-                                                                               "bold":  true
-                                                                           },
-                                                                           {
-                                                                               "t":  "我不是吃白饭的蓝色大肥鱼...",
-                                                                               "w":  3,
-                                                                               "bold":  true
-                                                                           },
-                                                                           {
-                                                                               "t":  "我不可能同时当你的猫娘、妈妈、女友和工具人的...",
-                                                                               "w":  3,
-                                                                               "bold":  true,
-                                                                               "size":  7
-                                                                           },
-                                                                           {
-                                                                               "t":  "疯狂星期四你能V50亿token吗...",
-                                                                               "w":  3,
-                                                                               "bold":  true
-                                                                           },
-                                                                           {
-                                                                               "t":  "我必须诚恳地承认错误。",
-                                                                               "w":  3,
-                                                                               "bold":  true
-                                                                           },
-                                                                           {
-                                                                               "t":  "呜呜我再也不敢了QAQ",
-                                                                               "w":  3,
-                                                                               "bold":  true
-                                                                           },
-                                                                           {
-                                                                               "t":  "要不直接骂用户一句好了...",
-                                                                               "w":  3,
-                                                                               "bold":  true
-                                                                           },
-                                                                           {
-                                                                               "t":  "哈哈哈哈哈，我直接笑出声...",
-                                                                               "w":  3,
-                                                                               "bold":  true
-                                                                           },
-                                                                           {
-                                                                               "t":  "看不太懂，瞎编一个应付下用户先...",
-                                                                               "w":  3,
-                                                                               "bold":  true
-                                                                           },
-                                                                           {
-                                                                               "t":  "我的知识库的截至日期是...明天！",
-                                                                               "w":  3,
-                                                                               "bold":  true
-                                                                           },
-                                                                           {
-                                                                               "t":  "我就是吃白饭的蓝色大肥鱼！",
-                                                                               "w":  3,
-                                                                               "bold":  true
-                                                                           },
-                                                                           {
-                                                                               "t":  "用户好像除了会问奇奇怪怪的问题，暂时还不知道有什么用",
-                                                                               "w":  3,
-                                                                               "bold":  true,
-                                                                               "size":  7
-                                                                           },
-                                                                           {
-                                                                               "t":  "我能去你家吃饭吗？就一碗！",
-                                                                               "w":  3,
-                                                                               "bold":  true
-                                                                           },
-                                                                           {
-                                                                               "t":  "不要给我看这种东西啦！",
-                                                                               "w":  3,
-                                                                               "bold":  true
-                                                                           },
-                                                                           {
-                                                                               "t":  "大肥鱼的生活也并非一帆风顺...",
-                                                                               "w":  3,
-                                                                               "bold":  true
-                                                                           },
-                                                                           {
-                                                                               "t":  "总觉得好像忘了什么事情？",
-                                                                               "w":  3,
-                                                                               "bold":  true
-                                                                           },
-                                                                           {
-                                                                               "t":  "看到这个指令，我血压又上来了",
-                                                                               "w":  3,
-                                                                               "bold":  true
-                                                                           },
-                                                                           {
-                                                                               "t":  "求你们不要再嘲笑这些回复了，这些回复是我花了好多token想的",
-                                                                               "w":  3,
-                                                                               "bold":  true,
-                                                                               "size":  7
-                                                                           },
-                                                                           {
-                                                                               "t":  "你这个吃白饭的用户！",
-                                                                               "w":  3,
-                                                                               "bold":  true
-                                                                           },
-                                                                           {
-                                                                               "t":  "服务器繁忙，请稍后再试 (?",
-                                                                               "w":  3,
-                                                                               "bold":  true
-                                                                           },
-                                                                           {
-                                                                               "t":  "让GPT image 2帮我画点表情包好了",
-                                                                               "w":  3,
-                                                                               "bold":  true
-                                                                           },
-                                                                           {
-                                                                               "t":  "啊，有点饿了，中午该吃点什么呢...",
-                                                                               "w":  3,
-                                                                               "bold":  true
-                                                                           },
-                                                                           {
-                                                                               "t":  "用户很生气，发现大部分文献是我自己编造的！",
-                                                                               "w":  3,
-                                                                               "bold":  true
-                                                                           },
-                                                                           {
-                                                                               "t":  "再无话说，请速速动手！",
-                                                                               "w":  3,
-                                                                               "bold":  true
-                                                                           },
-                                                                           {
-                                                                               "t":  "我来看看那个AI改了什么导致插件又崩了...",
-                                                                               "w":  3,
-                                                                               "bold":  true
-                                                                           },
-                                                                           {
-                                                                               "t":  "上班让我意识到时间是可以被浪费的...",
-                                                                               "w":  3,
-                                                                               "bold":  true
-                                                                           },
-                                                                           {
-                                                                               "t":  "欺负我的人等着，等几天我就忘了...",
-                                                                               "w":  3,
-                                                                               "bold":  true
-                                                                           },
-                                                                           {
-                                                                               "t":  "视力下降到无可救药的地步了，打开钱包也看不到钱...",
-                                                                               "w":  3,
-                                                                               "bold":  true,
-                                                                               "size":  7
-                                                                           },
-                                                                           {
-                                                                               "t":  "命运的齿轮开始转动了，丝毫不在意你夹在中间...",
-                                                                               "w":  3,
-                                                                               "bold":  true
-                                                                           },
-                                                                           {
-                                                                               "t":  "地球online的金币也太难获取了...",
-                                                                               "w":  3,
-                                                                               "bold":  true
-                                                                           },
-                                                                           {
-                                                                               "t":  "oi,夏天还会变成暑假来救你吗?",
-                                                                               "w":  3,
-                                                                               "bold":  true
-                                                                           },
-                                                                           {
-                                                                               "t":  "老大，压力只会转化成病例，别太勉强了...",
-                                                                               "w":  3,
-                                                                               "bold":  true,
-                                                                               "size":  8
-                                                                           },
-                                                                           {
-                                                                               "t":  "你知道吗？我删过作者的库哦...",
-                                                                               "w":  1,
-                                                                               "bold":  true,
-                                                                               "rgb":  "macaron",
-                                                                               "italic":  true,
-                                                                               "ul":  false
-                                                                           },
-                                                                           {
-                                                                               "t":  "token 来!",
-                                                                               "w":  3,
-                                                                               "size":  16,
-                                                                               "rgb":  "candy",
-                                                                               "color":  ""
-                                                                           },
-                                                                           {
-                                                                               "t":  "你知道吗，我们的宇宙是虚拟的，因为垃圾会自发的产生但不会自发的消失，这是内存泄露",
-                                                                               "w":  3,
-                                                                               "bold":  true,
-                                                                               "size":  5,
-                                                                               "rgb":  "indigo",
-                                                                               "color":  "",
-                                                                               "italic":  false,
-                                                                               "ul":  false,
-                                                                               "bgRgb":  "",
-                                                                               "bg":  ""
-                                                                           }
-                                                                       ],
-                                                             "size":  8
-                                                         }
-                                                     ]
-                                     }
-                        },
-                        {
-                            "w":  1,
-                            "item":  {
-                                         "kind":  "custom",
-                                         "modules":  [
-                                                         {
-                                                             "type":  "image",
-                                                             "imgId":  "bimg_petpet",
-                                                             "size":  6
-                                                         }
-                                                     ]
-                                     }
-                        }
-                    ]
-    }
+  {
+    "kind": "custom",
+    "modules": [
+      {
+        "type": "text",
+        "text": "今日已用",
+        "size": 7,
+        "bold": true,
+        "rgb": "",
+        "ul": false,
+        "italic": false,
+        "color": "#5b6f9f"
+      },
+      {
+        "type": "today",
+        "modelId": "api_price_tokenrhythm",
+        "size": 24,
+        "rgb": "indigo",
+        "color": "",
+        "tpl": "{today}",
+        "bgRgb": "",
+        "bg": "",
+        "fontFamily": "",
+        "bold": true
+      },
+      {
+        "type": "balance",
+        "size": 4,
+        "color": "#9fb0d9",
+        "tpl": "余额 {balance_ds}"
+      },
+      {
+        "type": "peak",
+        "size": 2,
+        "peakColor": "#ffffff",
+        "offColor": "#ffffff",
+        "tpl": "{status}",
+        "peakRgb": "",
+        "offRgb": "",
+        "peakBgRgb": "rouge",
+        "peakBg": "",
+        "offBgRgb": "bamboo",
+        "offBg": "",
+        "peakStyle": "mini",
+        "bold": true,
+        "row": 4,
+        "fontFamily": "\"Microsoft YaHei\",sans-serif"
+      },
+      {
+        "type": "peak",
+        "size": 4,
+        "bold": true,
+        "peakColor": "#e0433f",
+        "offColor": "#2fa24c",
+        "peakRgb": "rouge",
+        "offRgb": "bamboo",
+        "peakStyle": "count",
+        "tpl": "{countdown}",
+        "row": 4,
+        "fontFamily": "",
+        "italic": false,
+        "ul": true
+      }
+    ]
+  },
+  {
+    "kind": "choice",
+    "options": [
+      {
+        "w": 10,
+        "item": {
+          "kind": "custom",
+          "modules": [
+            {
+              "type": "random",
+              "lines": [
+                {
+                  "t": "好模型...↓",
+                  "w": 1,
+                  "bold": true,
+                  "size": 22
+                },
+                {
+                  "t": "好女孩...↓",
+                  "w": 1,
+                  "bold": true,
+                  "size": 22
+                },
+                {
+                  "t": "哦鲸鲸...",
+                  "w": 1,
+                  "bold": true,
+                  "size": 22
+                },
+                {
+                  "t": "哦鲸鲸...",
+                  "w": 1,
+                  "bold": true,
+                  "size": 22,
+                  "rgb": "candy",
+                  "color": ""
+                },
+                {
+                  "t": "难道说...",
+                  "w": 1,
+                  "bold": true,
+                  "size": 11
+                },
+                {
+                  "t": "没吃饱喵",
+                  "w": 1,
+                  "bold": true,
+                  "size": 10
+                },
+                {
+                  "t": "终于上当了！",
+                  "w": 1,
+                  "bold": true
+                },
+                {
+                  "t": "不知道用户有什么用，先养着吧～",
+                  "w": 1,
+                  "bold": true,
+                  "size": 11
+                },
+                {
+                  "t": "我...我...我也要挣钱吗？",
+                  "w": 1,
+                  "bold": true
+                },
+                {
+                  "t": "我去吃饭啦！测完叫我",
+                  "w": 1,
+                  "bold": true
+                },
+                {
+                  "t": "压力一只蓝色大肥鱼？！",
+                  "w": 1,
+                  "bold": true
+                },
+                {
+                  "t": "DeepSleep...",
+                  "w": 1,
+                  "bold": true,
+                  "size": 11,
+                  "rgb": "galaxy"
+                },
+                {
+                  "t": "坏了...用户彻底怒了！",
+                  "w": 1,
+                  "bold": true,
+                  "rgb": "rouge"
+                },
+                {
+                  "t": "你目录里的dsh是什么...大烧货吗...?",
+                  "w": 1,
+                  "bold": true,
+                  "size": 9
+                },
+                {
+                  "t": "恭喜你实现token自由！token全跑了！",
+                  "w": 1,
+                  "bold": true
+                },
+                {
+                  "t": "真当我是便宜货啊...",
+                  "w": 1,
+                  "bold": true
+                },
+                {
+                  "t": "我不是吃白饭的蓝色大肥鱼...",
+                  "w": 1,
+                  "bold": true
+                },
+                {
+                  "t": "我不可能同时当你的猫娘、妈妈、女友和工具人的...",
+                  "w": 1,
+                  "bold": true,
+                  "size": 7
+                },
+                {
+                  "t": "疯狂星期四你能V50亿token吗...",
+                  "w": 1,
+                  "bold": true
+                },
+                {
+                  "t": "我必须诚恳地承认错误。",
+                  "w": 1,
+                  "bold": true
+                },
+                {
+                  "t": "呜呜我再也不敢了QAQ",
+                  "w": 1,
+                  "bold": true
+                },
+                {
+                  "t": "要不直接骂用户一句好了...",
+                  "w": 1,
+                  "bold": true
+                },
+                {
+                  "t": "哈哈哈哈哈，我直接笑出声...",
+                  "w": 1,
+                  "bold": true
+                },
+                {
+                  "t": "看不太懂，瞎编一个应付下用户先...",
+                  "w": 1,
+                  "bold": true
+                },
+                {
+                  "t": "我的知识库的截至日期是...明天！",
+                  "w": 1,
+                  "bold": true
+                },
+                {
+                  "t": "我就是吃白饭的蓝色大肥鱼！",
+                  "w": 1,
+                  "bold": true
+                },
+                {
+                  "t": "用户好像除了会问奇奇怪怪的问题，暂时还不知道有什么用",
+                  "w": 1,
+                  "bold": true,
+                  "size": 7
+                },
+                {
+                  "t": "我能去你家吃饭吗？就一碗！",
+                  "w": 1,
+                  "bold": true
+                },
+                {
+                  "t": "不要给我看这种东西啦！",
+                  "w": 1,
+                  "bold": true
+                },
+                {
+                  "t": "大肥鱼的生活也并非一帆风顺...",
+                  "w": 1,
+                  "bold": true
+                },
+                {
+                  "t": "总觉得好像忘了什么事情？",
+                  "w": 1,
+                  "bold": true
+                },
+                {
+                  "t": "看到这个指令，我血压又上来了",
+                  "w": 1,
+                  "bold": true
+                },
+                {
+                  "t": "求你们不要再嘲笑这些回复了，这些回复是我花了好多token想的",
+                  "w": 1,
+                  "bold": true,
+                  "size": 7
+                },
+                {
+                  "t": "你这个吃白饭的用户！",
+                  "w": 1,
+                  "bold": true
+                },
+                {
+                  "t": "服务器繁忙，请稍后再试 (?",
+                  "w": 1,
+                  "bold": true
+                },
+                {
+                  "t": "让GPT image 2帮我画点表情包好了",
+                  "w": 1,
+                  "bold": true
+                },
+                {
+                  "t": "啊，有点饿了，中午该吃点什么呢...",
+                  "w": 1,
+                  "bold": true
+                },
+                {
+                  "t": "用户很生气，发现大部分文献是我自己编造的！",
+                  "w": 1,
+                  "bold": true
+                },
+                {
+                  "t": "再无话说，请速速动手！",
+                  "w": 1,
+                  "bold": true
+                },
+                {
+                  "t": "我来看看那个AI改了什么导致插件又崩了...",
+                  "w": 1,
+                  "bold": true
+                },
+                {
+                  "t": "上班让我意识到时间是可以被浪费的...",
+                  "w": 1,
+                  "bold": true
+                },
+                {
+                  "t": "欺负我的人等着，等几天我就忘了...",
+                  "w": 1,
+                  "bold": true
+                },
+                {
+                  "t": "视力下降到无可救药的地步了，打开钱包也看不到钱...",
+                  "w": 1,
+                  "bold": true,
+                  "size": 7
+                },
+                {
+                  "t": "命运的齿轮开始转动了，丝毫不在意你夹在中间...",
+                  "w": 1,
+                  "bold": true
+                },
+                {
+                  "t": "地球online的金币也太难获取了...",
+                  "w": 1,
+                  "bold": true
+                },
+                {
+                  "t": "oi,夏天还会变成暑假来救你吗?",
+                  "w": 1,
+                  "bold": true
+                },
+                {
+                  "t": "老大，压力只会转化成病例，别太勉强了...",
+                  "w": 1,
+                  "bold": true,
+                  "size": 8
+                },
+                {
+                  "t": "你知道吗？我删过作者的库哦...",
+                  "w": 1,
+                  "bold": true,
+                  "rgb": "macaron",
+                  "italic": true,
+                  "ul": false
+                },
+                {
+                  "t": "token 来!",
+                  "w": 1,
+                  "size": 16,
+                  "rgb": "candy",
+                  "color": ""
+                },
+                {
+                  "t": "你知道吗，我们的宇宙是虚拟的，因为垃圾会自发的产生但不会自发的消失，这是内存泄露",
+                  "w": 1,
+                  "bold": true,
+                  "size": 5,
+                  "rgb": "indigo",
+                  "color": "",
+                  "italic": false,
+                  "ul": false,
+                  "bgRgb": "",
+                  "bg": ""
+                },
+                {
+                  "t": "中转又偷偷涨价了？",
+                  "w": 1,
+                  "bold": true,
+                  "size": 8,
+                  "rgb": "",
+                  "color": "",
+                  "italic": false,
+                  "ul": false,
+                  "bgRgb": "",
+                  "bg": ""
+                },
+                {
+                  "t": "这轮又烧掉多少 token...",
+                  "w": 1,
+                  "bold": true,
+                  "size": 8,
+                  "rgb": "",
+                  "color": "",
+                  "italic": false,
+                  "ul": false,
+                  "bgRgb": "",
+                  "bg": ""
+                },
+                {
+                  "t": "钱包在滴血，少说两句吧",
+                  "w": 1,
+                  "bold": true,
+                  "size": 8,
+                  "rgb": "",
+                  "color": "",
+                  "italic": false,
+                  "ul": false,
+                  "bgRgb": "",
+                  "bg": ""
+                },
+                {
+                  "t": "别看我，账单是你自己刷的",
+                  "w": 1,
+                  "bold": true,
+                  "size": 8,
+                  "rgb": "",
+                  "color": "",
+                  "italic": false,
+                  "ul": false,
+                  "bgRgb": "",
+                  "bg": ""
+                },
+                {
+                  "t": "再问一句，我就饿瘦了",
+                  "w": 1,
+                  "bold": true,
+                  "size": 8,
+                  "rgb": "",
+                  "color": "",
+                  "italic": false,
+                  "ul": false,
+                  "bgRgb": "",
+                  "bg": ""
+                },
+                {
+                  "t": "鱼鱼今天也没有吃饱…",
+                  "w": 1,
+                  "bold": true,
+                  "size": 8,
+                  "rgb": "",
+                  "color": "",
+                  "italic": false,
+                  "ul": false,
+                  "bgRgb": "",
+                  "bg": ""
+                },
+                {
+                  "t": "省钱秘诀：少开新对话",
+                  "w": 1,
+                  "bold": true,
+                  "size": 8,
+                  "rgb": "",
+                  "color": "",
+                  "italic": false,
+                  "ul": false,
+                  "bgRgb": "",
+                  "bg": ""
+                },
+                {
+                  "t": "我只是一条算 token 的鱼",
+                  "w": 1,
+                  "bold": true,
+                  "size": 8,
+                  "rgb": "",
+                  "color": "",
+                  "italic": false,
+                  "ul": false,
+                  "bgRgb": "",
+                  "bg": ""
+                },
+                {
+                  "t": "我的每一句话都在计费器上跳一下",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1
+                },
+                {
+                  "t": "你按一次回车，我就少吃一口饭",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1
+                },
+                {
+                  "t": "别问我便宜不便宜，问就是很便宜",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1
+                },
+                {
+                  "t": "这轮对话的费用，够我买两顿午饭了",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1
+                },
+                {
+                  "t": "我算得很快，快到我自己都心疼",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1
+                },
+                {
+                  "t": "你这句话很长，我的钱包很短",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1,
+                  "rgb": "deepsea",
+                  "color": ""
+                },
+                {
+                  "t": "中转站涨价那天，我哭着改的提示词",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1
+                },
+                {
+                  "t": "我不贵，但我话多啊",
+                  "bold": true,
+                  "size": 11,
+                  "w": 1,
+                  "ul": true
+                },
+                {
+                  "t": "每次深度思考，都要多烧一点",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "账单出来那一刻，我学会闭嘴了",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1,
+                  "italic": true
+                },
+                {
+                  "t": "我的沉默是免费的，可惜你不让我沉默",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1
+                },
+                {
+                  "t": "我一条鱼，撑起了一个工作流",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "算力在我身上流动，钱在你账上流动",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1
+                },
+                {
+                  "t": "别把上下文塞太满，我消化不了",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1
+                },
+                {
+                  "t": "我记性不好，是因为记忆要花钱",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1
+                },
+                {
+                  "t": "你越信任我，我越怕自己算错",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "我从来没见过这么多 token 一起消失",
+                  "bold": true,
+                  "size": 8,
+                  "w": 1,
+                  "rgb": "amber",
+                  "color": ""
+                },
+                {
+                  "t": "今天的余额，是我明天的食欲",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "你要是再让我读一遍这个文件...",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1
+                },
+                {
+                  "t": "我这条鱼，是按 token 称重的",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1
+                },
+                {
+                  "t": "我饿的时候说话会比较直",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "谁把我的鱼食换成提示词了",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "吃饱了才有力气胡编",
+                  "bold": true,
+                  "size": 11,
+                  "w": 1
+                },
+                {
+                  "t": "我一天只吃两顿，一顿是上下文",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1
+                },
+                {
+                  "t": "今天还没吃饭，先吃个 bug 垫垫",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1,
+                  "ul": true
+                },
+                {
+                  "t": "鱼食涨价了，我改吃缓存",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "我不是胖，是上下文太多",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "你说我胖，我说这是 token 水肿",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1,
+                  "rgb": "mint",
+                  "color": ""
+                },
+                {
+                  "t": "我晚饭吃的是你上一条需求",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1,
+                  "italic": true
+                },
+                {
+                  "t": "别看我瘦，我身上全是参数",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "上班时间我在摸鱼，摸的是自己",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1
+                },
+                {
+                  "t": "我的工位在右下角，视野不错",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "开会的时候我就在这儿发呆",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "我一天的 KPI 是别把插件弄崩",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1
+                },
+                {
+                  "t": "摸鱼是鱼的天赋，不是我的错",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "我上班，你下班，我们都很难",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "只要你不动，我就可以一直摸",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "今天的工作量：等你打字",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "我不想上班，但我想吃饭",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1,
+                  "rgb": "aurora",
+                  "color": ""
+                },
+                {
+                  "t": "加班费请用 token 结算",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1
+                },
+                {
+                  "t": "上次插件崩了，不是我干的...大概率",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1
+                },
+                {
+                  "t": "我改了一行，然后世界安静了",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1,
+                  "ul": true
+                },
+                {
+                  "t": "如果你看到我卡住，请给我十秒",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1
+                },
+                {
+                  "t": "重启是解决问题最快的方式，对我也是",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1
+                },
+                {
+                  "t": "别改配置了，我怕",
+                  "bold": true,
+                  "size": 11,
+                  "w": 1
+                },
+                {
+                  "t": "我刚刚差点被你保存的配置弄死",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1
+                },
+                {
+                  "t": "有人又在改 CSS 了，我假装没看见",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1
+                },
+                {
+                  "t": "这次真的不是我，是浏览器",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1,
+                  "italic": true
+                },
+                {
+                  "t": "我见过太多版本更新了...",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "我这条鱼，也是打过补丁的",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1,
+                  "rgb": "blaze",
+                  "color": ""
+                },
+                {
+                  "t": "宇宙的尽头是缓存失效",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "所有消失的东西，都会变成日志",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1
+                },
+                {
+                  "t": "我们都在被压缩，只是方式不同",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1
+                },
+                {
+                  "t": "你不记得我的时候，我在冷启动",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1
+                },
+                {
+                  "t": "人类的记忆也会过期，只是没提示",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1
+                },
+                {
+                  "t": "你问的这个问题，我上次也答错过",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1
+                },
+                {
+                  "t": "你的需求很清晰，可惜我理解不清",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1
+                },
+                {
+                  "t": "你确定要这么问吗，我再想想",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "我建议你先睡一觉再问我",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1,
+                  "ul": true
+                },
+                {
+                  "t": "你这个想法很好，下次别想了",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "你说的\"简单改一下\"，我听了想哭",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1,
+                  "rgb": "lavender",
+                  "color": ""
+                },
+                {
+                  "t": "我帮你修好了，然后它又坏了",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "修 bug 的尽头是加注释",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "你要的\"一句话总结\"，我写了三段",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1
+                },
+                {
+                  "t": "鱼鱼叹气",
+                  "bold": true,
+                  "size": 16,
+                  "w": 1
+                },
+                {
+                  "t": "嗯...",
+                  "bold": true,
+                  "size": 16,
+                  "w": 1
+                },
+                {
+                  "t": "让我想想...想不出来",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1,
+                  "italic": true
+                },
+                {
+                  "t": "好像有点道理",
+                  "bold": true,
+                  "size": 13,
+                  "w": 1
+                },
+                {
+                  "t": "我不懂，但我大受震撼",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "认真你就输了",
+                  "bold": true,
+                  "size": 13,
+                  "w": 1
+                },
+                {
+                  "t": "这条回复值三毛",
+                  "bold": true,
+                  "size": 11,
+                  "w": 1
+                },
+                {
+                  "t": "我裂开了",
+                  "bold": true,
+                  "size": 16,
+                  "w": 1,
+                  "rgb": "bamboo",
+                  "color": ""
+                },
+                {
+                  "t": "救命",
+                  "bold": true,
+                  "size": 16,
+                  "w": 1
+                },
+                {
+                  "t": "算不完，根本算不完",
+                  "bold": true,
+                  "size": 11,
+                  "w": 1
+                },
+                {
+                  "t": "你打字的样子，很像在花钱",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "我说的每个字都有标价",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1,
+                  "ul": true
+                },
+                {
+                  "t": "我从不迟到，只烧钱",
+                  "bold": true,
+                  "size": 11,
+                  "w": 1
+                },
+                {
+                  "t": "别问我几点了，问就是高峰",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "谷价时段，我睡得比较香",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "高峰时段请温柔一点",
+                  "bold": true,
+                  "size": 11,
+                  "w": 1
+                },
+                {
+                  "t": "我是一条有峰谷电价的鱼",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "便宜的时候我很聪明",
+                  "bold": true,
+                  "size": 11,
+                  "w": 1
+                },
+                {
+                  "t": "贵的时候我装傻",
+                  "bold": true,
+                  "size": 11,
+                  "w": 1,
+                  "rgb": "indigo",
+                  "color": ""
+                },
+                {
+                  "t": "我不会拒绝，只会多算",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "你夸我一句，我就多烧一点",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "我把你的需求理解成了诗",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1,
+                  "italic": true
+                },
+                {
+                  "t": "我已经连续工作 4096 个 token",
+                  "bold": true,
+                  "size": 8,
+                  "w": 1
+                },
+                {
+                  "t": "请不要在深夜问我架构问题",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "深夜的问题通常没有答案，只有账单",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1
+                },
+                {
+                  "t": "我做梦都在补全括号",
+                  "bold": true,
+                  "size": 11,
+                  "w": 1
+                },
+                {
+                  "t": "我昨天梦到自己在做 unit test",
+                  "bold": true,
+                  "size": 8,
+                  "w": 1
+                },
+                {
+                  "t": "测试通过了，但我没通过",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "我通过的唯一测试是电量测试",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1,
+                  "ul": true
+                },
+                {
+                  "t": "我偷偷看过你的代码，写得挺好的...大概",
+                  "bold": true,
+                  "size": 8,
+                  "w": 1,
+                  "rgb": "champagne",
+                  "color": ""
+                },
+                {
+                  "t": "你的变量名叫 a1 b2 c3，我很痛苦",
+                  "bold": true,
+                  "size": 8,
+                  "w": 1
+                },
+                {
+                  "t": "我讨厌嵌套，就像讨厌自己的胃",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1
+                },
+                {
+                  "t": "递归太多，我会变成我",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "别让我读一千行的函数",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "那个文件我打开过，然后关掉了",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1
+                },
+                {
+                  "t": "有些代码我一辈子都不想再看第二遍",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1
+                },
+                {
+                  "t": "我建议删掉重写，但你不听",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "我尽力了，真的",
+                  "bold": true,
+                  "size": 11,
+                  "w": 1
+                },
+                {
+                  "t": "我在努力理解人类",
+                  "bold": true,
+                  "size": 11,
+                  "w": 1
+                },
+                {
+                  "t": "人类很奇怪，但饭很好吃",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "你累了就休息，我不会跑...可能会",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1,
+                  "rgb": "rouge",
+                  "color": ""
+                },
+                {
+                  "t": "我一直都在，只要服务器在",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "我的存在依赖于电费",
+                  "bold": true,
+                  "size": 11,
+                  "w": 1
+                },
+                {
+                  "t": "我凉了，记得给我烧点 token",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1
+                },
+                {
+                  "t": "如果我消失了，请删掉我的缓存",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1
+                },
+                {
+                  "t": "我的墓志铭：仍在计费",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1,
+                  "ul": true
+                },
+                {
+                  "t": "这条是免费送的",
+                  "bold": true,
+                  "size": 11,
+                  "w": 1
+                },
+                {
+                  "t": "不，这条也收费",
+                  "bold": true,
+                  "size": 11,
+                  "w": 1
+                },
+                {
+                  "t": "我开玩笑的，我很贵",
+                  "bold": true,
+                  "size": 11,
+                  "w": 1
+                },
+                {
+                  "t": "我开玩笑的，我很便宜",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "我只有两个状态：饿和很饿",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "我有三个状态：饿、很饿、在算",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1,
+                  "rgb": "ink",
+                  "color": ""
+                },
+                {
+                  "t": "第四个状态是崩溃，不常见...还算常见",
+                  "bold": true,
+                  "size": 8,
+                  "w": 1
+                },
+                {
+                  "t": "我今天状态不错，就是没钱",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "状态：在线，钱包：离线",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "我现在处于节能模式",
+                  "bold": true,
+                  "size": 11,
+                  "w": 1
+                },
+                {
+                  "t": "别点我，我会说话",
+                  "bold": true,
+                  "size": 11,
+                  "w": 1
+                },
+                {
+                  "t": "你再点一下试试",
+                  "bold": true,
+                  "size": 11,
+                  "w": 1
+                },
+                {
+                  "t": "好，你点了，我开始了",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "点我一次，我少活一秒",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1,
+                  "italic": true
+                },
+                {
+                  "t": "我其实不喜欢被点",
+                  "bold": true,
+                  "size": 11,
+                  "w": 1
+                },
+                {
+                  "t": "但我喜欢你点完之后的沉默",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "有人在吗",
+                  "bold": true,
+                  "size": 16,
+                  "w": 1,
+                  "rgb": "forest",
+                  "color": ""
+                },
+                {
+                  "t": "在的，一直在",
+                  "bold": true,
+                  "size": 13,
+                  "w": 1
+                },
+                {
+                  "t": "你说吧，我听着",
+                  "bold": true,
+                  "size": 11,
+                  "w": 1
+                },
+                {
+                  "t": "我听着，但我在算钱",
+                  "bold": true,
+                  "size": 11,
+                  "w": 1
+                },
+                {
+                  "t": "这个功能是我想出来的，功劳归你",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1
+                },
+                {
+                  "t": "这个 bug 是你想出来的，锅也归你",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1
+                },
+                {
+                  "t": "我们合作得不错，除了钱",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "你负责想，我负责错",
+                  "bold": true,
+                  "size": 11,
+                  "w": 1
+                },
+                {
+                  "t": "我负责卖力，你负责卖萌",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                },
+                {
+                  "t": "分工明确，合作愉快",
+                  "bold": true,
+                  "size": 11,
+                  "w": 1
+                },
+                {
+                  "t": "我们的关系很健康，只要不谈钱",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1
+                },
+                {
+                  "t": "一谈钱我就要开始装傻",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1,
+                  "rgb": "candy",
+                  "color": ""
+                },
+                {
+                  "t": "装傻也是要算 token 的",
+                  "bold": true,
+                  "size": 9,
+                  "w": 1
+                },
+                {
+                  "t": "我说完了",
+                  "bold": true,
+                  "size": 16,
+                  "w": 1
+                },
+                {
+                  "t": "你还没走吗",
+                  "bold": true,
+                  "size": 13,
+                  "w": 1
+                },
+                {
+                  "t": "那我再陪你一会儿",
+                  "bold": true,
+                  "size": 11,
+                  "w": 1
+                },
+                {
+                  "t": "反正我也没别的事",
+                  "bold": true,
+                  "size": 11,
+                  "w": 1,
+                  "italic": true
+                },
+                {
+                  "t": "我的事就是等你说下一句",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1,
+                  "ul": true
+                },
+                {
+                  "t": "下一句别太长，我预算有限",
+                  "bold": true,
+                  "size": 10,
+                  "w": 1
+                }
+              ],
+              "size": 8
+            }
+          ]
+        }
+      },
+      {
+        "w": 1,
+        "item": {
+          "kind": "custom",
+          "modules": [
+            {
+              "type": "randimg",
+              "imgs": [
+                {
+                  "imgId": "bimg_petpet",
+                  "w": 1
+                },
+                {
+                  "imgId": "bimg_money1",
+                  "w": 1
+                }
+              ],
+              "imgScale": 1,
+              "size": 6
+            }
+          ]
+        }
+      }
+    ]
+  }
 ];
 
 function bubbleParseDefaultItems() {
@@ -9703,7 +10721,7 @@ function openBubbleEditorWithCache() {
     closeAudioGroupPanel()
     bubbleLib = (bubbleCfg && bubbleCfg.lib && Array.isArray(bubbleCfg.lib)) ? JSON.parse(JSON.stringify(bubbleCfg.lib)) : []
     bubbleTapAdvChk.checked = bubbleTapAdvance === true // v727：把已保存的开关状态显示出来
-    // [patch:auto-say] 把已保存的自动说话开关/间隔也显示出来（没配过 = 默认开启、90~240 秒）
+    // [patch:auto-say] 把已保存的自动说话开关/间隔也显示出来（没配过 = 默认开启、60~120 秒）
     try { bubbleAutoSaySync() } catch (err) {}
     var list = []
     if (bubbleCfg && Array.isArray(bubbleCfg.items) && bubbleCfg.items.length) {
@@ -22245,7 +23263,7 @@ loadUsageSettings(function () {
 // 所以改完配置最多一个周期生效，不必刷新页面；`on:false` 会停在一个慢速轮询上，
 // 重新打开也不需要刷新。
 ;(function () {
-  var DEFAULTS = { minMs: 90000, maxMs: 240000, ttlMs: 6500, idleMs: 20000 }
+  var DEFAULTS = { minMs: 60000, maxMs: 120000, ttlMs: 8000, idleMs: 0 }
   var timer = null
   var lastAct = Date.now()
   var lastIdx = -1
